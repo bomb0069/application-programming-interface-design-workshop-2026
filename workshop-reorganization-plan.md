@@ -1,6 +1,6 @@
 # Workshop Reorganization Plan
 
-> **Status:** PENDING — Not yet started
+> **Status:** IN PROGRESS — Phase 0 (renames) completed
 >
 > **Goal:** Restructure all labs into `labXX-YY-topic-name` format where XX = group number, YY = sub-lab number. All REST API groups finish before non-REST technologies. Related topics are grouped together.
 >
@@ -152,45 +152,45 @@ Part 2: Beyond REST (Groups 08–11)
 > **IMPORTANT:** Rename all folders first, then fix all internal references (go.mod module names, README cross-links, docker-compose references, CLAUDE.md). Do this as one atomic step before any new lab work.
 
 #### Group 01 renames
-- [ ] 0.1 `mv lab01-hello-api lab01-01-hello-api`
-- [ ] 0.2 `mv lab02-json-response lab01-02-json-response`
-- [ ] 0.3 `mv lab04-crud-in-memory lab01-03-crud-in-memory`
-- [ ] 0.4 `mv lab05-crud-with-database lab01-04-crud-with-database`
-- [ ] 0.5 `mv lab13-file-upload-download lab01-05-file-upload-download`
+- [x] 0.1 `mv lab01-hello-api lab01-01-hello-api`
+- [x] 0.2 `mv lab02-json-response lab01-02-json-response`
+- [x] 0.3 `mv lab04-crud-in-memory lab01-03-crud-in-memory`
+- [x] 0.4 `mv lab05-crud-with-database lab01-04-crud-with-database`
+- [x] 0.5 `mv lab13-file-upload-download lab01-05-file-upload-download`
 
 #### Group 02 renames
-- [ ] 0.6 `mv lab03-path-parameter lab02-02-path-and-query-parameters`
-- [ ] 0.7 `mv lab06-request-validation lab02-03-request-validation`
-- [ ] 0.8 `mv lab07-error-handling lab02-04-error-handling`
-- [ ] 0.9 `mv lab09-pagination-and-filtering lab02-07-pagination-and-filtering`
-- [ ] 0.10 `mv lab08-swagger-documentation lab02-08-swagger-documentation`
+- [x] 0.6 `mv lab03-path-parameter lab02-02-path-and-query-parameters`
+- [x] 0.7 `mv lab06-request-validation lab02-03-request-validation`
+- [x] 0.8 `mv lab07-error-handling lab02-04-error-handling`
+- [x] 0.9 `mv lab09-pagination-and-filtering lab02-07-pagination-and-filtering`
+- [x] 0.10 `mv lab08-swagger-documentation lab02-08-swagger-documentation`
 
 #### Group 03 renames
-- [ ] 0.11 `mv lab10-authentication lab03-01-authentication`
-- [ ] 0.12 `mv lab12-rate-limiting-and-cors lab03-02-rate-limiting-and-cors`
+- [x] 0.11 `mv lab10-authentication lab03-01-authentication`
+- [x] 0.12 `mv lab12-rate-limiting-and-cors lab03-02-rate-limiting-and-cors`
 
 #### Group 04 renames (lab11 → lab04, including sub-labs)
-- [ ] 0.13 `mv lab11-api-versioning lab04-api-versioning` (rename parent)
-- [ ] 0.14 Rename all sub-lab folders inside: `lab11-01-*` → `lab04-01-*` through `lab11-08-*` → `lab04-08-*`
-- [ ] 0.15 Update go.mod module names in all 8 sub-labs (golang/)
-- [ ] 0.16 Update lab04 CLAUDE.md and README.md internal references
+- [x] 0.13 `mv lab11-api-versioning lab04-api-versioning` (rename parent)
+- [x] 0.14 Rename all sub-lab folders inside: `lab11-01-*` → `lab04-01-*` through `lab11-08-*` → `lab04-08-*`
+- [x] 0.15 Update go.mod module names in all 8 sub-labs (golang/)
+- [x] 0.16 Update lab04 CLAUDE.md and README.md internal references
 
 #### Group 08–11 renames (Beyond REST)
-- [ ] 0.17 `mv lab14-graphql lab08-01-graphql`
-- [ ] 0.18 `mv lab15-webhook lab09-01-webhook`
-- [ ] 0.19 `mv lab16-websocket lab09-02-websocket`
-- [ ] 0.20 `mv lab17-grpc-basics lab10-01-grpc-basics`
-- [ ] 0.21 `mv lab18-grpc-advanced lab10-02-grpc-advanced`
-- [ ] 0.22 `mv lab19-message-queue lab11-01-message-queue`
-- [ ] 0.23 `mv lab20-mqtt lab11-02-mqtt`
+- [x] 0.17 `mv lab14-graphql lab08-01-graphql`
+- [x] 0.18 `mv lab15-webhook lab09-01-webhook`
+- [x] 0.19 `mv lab16-websocket lab09-02-websocket`
+- [x] 0.20 `mv lab17-grpc-basics lab10-01-grpc-basics`
+- [x] 0.21 `mv lab18-grpc-advanced lab10-02-grpc-advanced`
+- [x] 0.22 `mv lab19-message-queue lab11-01-message-queue`
+- [x] 0.23 `mv lab20-mqtt lab11-02-mqtt`
 
 #### Fix all references after renames
-- [ ] 0.24 Update go.mod module names in all renamed labs
-- [ ] 0.25 Update all README.md cross-references (links between labs)
-- [ ] 0.26 Update root README.md with new structure and lab table
-- [ ] 0.27 Update root CLAUDE.md with new naming convention
-- [ ] 0.28 Write group-level README.md for groups that need one (01, 02, 03, 04, 08, 09, 10, 11)
-- [ ] 0.29 Verify: `docker compose up --build` works for at least one lab per group
+- [x] 0.24 Update go.mod module names in all renamed labs
+- [x] 0.25 Update all README.md cross-references (links between labs)
+- [x] 0.26 Update root README.md with new structure and lab table
+- [x] 0.27 Update root CLAUDE.md with new naming convention
+- [x] 0.28 Write group-level README.md for groups that need one (01, 02, 03, 04, 08, 09, 10, 11)
+- [x] 0.29 Verify: `docker compose up --build` works for at least one lab per group
 
 ### Issues / Notes (Phase 0)
 - (none yet)
