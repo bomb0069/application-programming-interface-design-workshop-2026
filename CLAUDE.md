@@ -8,17 +8,14 @@ API Design Workshop — a hands-on learning path for API design, starting from s
 
 ## Structure
 
-Each lab lives in its own folder following the naming convention `labXX-topic-name` (e.g., `lab01-simple-rest-api`). Most labs contain a `docker-compose.yml` at the lab root. Labs with sub-labs (e.g., `lab11-api-versioning`) contain multiple sub-directories, each with its own `golang/` and `dotnet/` implementations and their own `docker-compose.yml`.
+Labs use `labXX-YY-topic-name` naming where XX = group number, YY = sub-lab number. Each group folder (`labXX-group-name/`) contains sub-lab folders, each with a `golang/` (and optionally `dotnet/`) directory and its own `docker-compose.yml`.
+
+> **NOTE:** The repo is being restructured from flat `labXX` to grouped `labXX-YY` format. See [workshop-reorganization-plan.md](workshop-reorganization-plan.md) for the current state and mapping.
 
 ## Running a Lab
 
 ```bash
-# Standard lab
-cd labXX-topic-name
-docker compose up --build
-
-# Sub-lab (e.g., lab11)
-cd lab11-api-versioning/lab11-01-url-path-versioning/golang
+cd labXX-group-name/labXX-YY-topic/golang
 docker compose up --build
 ```
 
@@ -39,3 +36,13 @@ The labs are ordered by complexity, designed for beginners and progressing to ad
 - Each lab is self-contained with its own `docker-compose.yml` (at the lab root, or inside `golang/`/`dotnet/` for multi-language sub-labs)
 - Lab numbering (`labXX`) defines the learning order
 - Topic name in the folder slug should be kebab-case and descriptive
+
+## Implementation Plans
+
+Before starting new work, **read the reorganization plan first** — it defines the new lab numbering and what needs to be built. Update checkboxes (`- [ ]` → `- [x]`) as you complete each item.
+
+| Plan | Status | Description |
+|------|--------|-------------|
+| [workshop-reorganization-plan.md](workshop-reorganization-plan.md) | PENDING | **START HERE** — Master plan: restructure all labs into `labXX-YY` groups, rename 20 existing labs, build 16 new labs |
+| [lab21-search-api-plan.md](lab21-search-api-plan.md) | PENDING | Detailed spec for Group 05 (Advanced Search) sub-labs — endpoints, DB schemas, code patterns |
+| [workshop-gap-analysis-plan.md](workshop-gap-analysis-plan.md) | PENDING | Gap analysis vs 2-day course — detailed scope for each new lab topic |
