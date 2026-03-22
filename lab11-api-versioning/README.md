@@ -117,7 +117,7 @@ lab11-api-versioning/
     dotnet/
 ```
 
-Each language directory is fully self-contained with its own `Dockerfile`, `docker-compose.yml`, source code, and tests.
+Each language directory is fully self-contained with its own `Dockerfile`, `docker-compose.yml`, source code, and configuration files.
 
 ## Key Concepts
 

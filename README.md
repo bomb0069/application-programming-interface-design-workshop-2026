@@ -9,7 +9,7 @@ This workshop contains **20 self-contained labs** organized into three parts. Yo
 Each lab includes:
 - A **README** with learning objectives, step-by-step instructions, and exercises
 - Working **Go source code** you can run, read, and modify
-- A **docker-compose.yml** that spins up everything you need with one command
+- A **docker-compose.yml** (or one per language, in multi-language labs) that spins up everything you need with one command
 
 No prior Go experience is required, but basic programming knowledge is helpful.
 
@@ -118,6 +118,8 @@ labXX-topic-name/
 └── ...                    # Additional files (handlers, configs, static assets)
 ```
 
+> **Note:** Some labs (like Lab 11) contain sub-labs with multiple language implementations. In those cases, the `docker-compose.yml` lives inside `golang/` or `dotnet/` subdirectories rather than at the lab root. See individual lab READMEs for details.
+
 ## Services & Ports Quick Reference
 
 | Labs | Services | Ports |
@@ -125,7 +127,9 @@ labXX-topic-name/
 | 01-04 | Go API | `8080` |
 | 05-10 | Go API, PostgreSQL | `8080`, `5432` |
 | 08 | Go API, PostgreSQL, Swagger UI | `8080`, `5432`, `8081` |
-| 11-12 | Go API, PostgreSQL | `8080`, `5432` |
+| 11 (sub-labs 01-07) | Go/.NET API, PostgreSQL | `8080`, `5432` |
+| 11 (sub-lab 08) | Go/.NET API, PostgreSQL, Prometheus, Grafana | `8080`, `5432`, `9090`, `3000` |
+| 12 | Go API, PostgreSQL | `8080`, `5432` |
 | 13 | Go API, PostgreSQL, MinIO | `8080`, `5432`, `9000`, `9001` |
 | 14 | Go API (GraphQL Playground), PostgreSQL | `8080`, `5432` |
 | 15 | Webhook Sender, Receiver, PostgreSQL | `8080`, `9090`, `5432` |

@@ -8,13 +8,18 @@ API Design Workshop — a hands-on learning path for API design, starting from s
 
 ## Structure
 
-Each lab lives in its own folder following the naming convention `labXX-topic-name` (e.g., `lab01-simple-rest-api`). Each lab folder contains a `docker-compose.yml` to start all required tools and services for that lab.
+Each lab lives in its own folder following the naming convention `labXX-topic-name` (e.g., `lab01-simple-rest-api`). Most labs contain a `docker-compose.yml` at the lab root. Labs with sub-labs (e.g., `lab11-api-versioning`) contain multiple sub-directories, each with its own `golang/` and `dotnet/` implementations and their own `docker-compose.yml`.
 
 ## Running a Lab
 
 ```bash
+# Standard lab
 cd labXX-topic-name
-docker-compose up
+docker compose up --build
+
+# Sub-lab (e.g., lab11)
+cd lab11-api-versioning/lab11-01-url-path-versioning/golang
+docker compose up --build
 ```
 
 ## Learning Path
@@ -31,6 +36,6 @@ The labs are ordered by complexity, designed for beginners and progressing to ad
 
 ## Conventions
 
-- Each lab is self-contained with its own `docker-compose.yml`
+- Each lab is self-contained with its own `docker-compose.yml` (at the lab root, or inside `golang/`/`dotnet/` for multi-language sub-labs)
 - Lab numbering (`labXX`) defines the learning order
 - Topic name in the folder slug should be kebab-case and descriptive

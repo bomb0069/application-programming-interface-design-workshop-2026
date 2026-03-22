@@ -71,7 +71,7 @@ This starts 4 services:
 
 ## Try It Out
 
-### Generate traffic for both versions
+### Generate traffic manually
 
 ```bash
 # V1 traffic
@@ -80,6 +80,32 @@ for i in $(seq 1 10); do curl -s http://localhost:8080/api/v1/products > /dev/nu
 # V2 traffic
 for i in $(seq 1 20); do curl -s http://localhost:8080/api/v2/products > /dev/null; done
 ```
+
+### Run the Load Test
+
+For sustained traffic that produces meaningful Grafana dashboards, use the built-in load test:
+
+```bash
+# Start the load test (runs for 3 minutes by default)
+docker compose --profile loadtest up loadtest
+```
+
+The load test sends ~5 requests/second with a 30/70 split between v1 and v2, simulating a real migration scenario where most clients have already moved to v2.
+
+**Customize the traffic ratio:**
+
+```bash
+# Equal traffic split
+V1_WEIGHT=50 V2_WEIGHT=50 docker compose --profile loadtest up loadtest
+
+# Almost fully migrated — only 5% on v1
+V1_WEIGHT=5 V2_WEIGHT=95 docker compose --profile loadtest up loadtest
+
+# Longer run with higher throughput
+DURATION_SECONDS=300 REQUESTS_PER_SEC=10 docker compose --profile loadtest up loadtest
+```
+
+The script generates GET (list + by ID) and POST requests across both versions. It prints progress every 30 seconds and a summary at the end.
 
 ### Check Prometheus metrics
 
@@ -127,11 +153,24 @@ sum(api_requests_total{version="v1"}) / sum(api_requests_total) * 100
 sum by (version) (rate(api_request_duration_seconds_sum[5m])) / sum by (version) (rate(api_request_duration_seconds_count[5m]))
 ```
 
-### Grafana Setup
+### Grafana Dashboard
+
+The Grafana datasource and dashboard are **auto-provisioned** — no manual setup required.
 
 1. Open http://localhost:3000 (admin/admin)
-2. Add Prometheus data source: http://prometheus:9090
-3. Create a dashboard with the queries above
+2. Go to Dashboards -- the **"API Version Traffic"** dashboard is already loaded
+
+The dashboard includes 5 panels:
+
+| Panel | PromQL | What It Shows |
+|-------|--------|---------------|
+| Request Rate by Version | `sum by (version) (rate(api_requests_total[1m]))` | Requests/sec for v1 vs v2 over time |
+| V1 Traffic Share (%) | `sum(rate(...{version="v1"}[1m])) / sum(rate(...[1m])) * 100` | Gauge showing how much traffic is still on deprecated v1 |
+| V2 Traffic Share (%) | Same formula for v2 | Gauge showing current version adoption |
+| Average Latency by Version | `sum by (version) (rate(duration_sum[1m])) / sum by (version) (rate(duration_count[1m]))` | Are v1 callers experiencing different latency than v2? |
+| Requests by Endpoint | `sum by (version, endpoint, method) (rate(...[1m]))` | Which specific endpoints still receive v1 traffic? |
+
+> **Tip:** Run the load test, then watch the dashboard update in real time. Try changing `V1_WEIGHT` and `V2_WEIGHT` to simulate different migration stages.
 
 ## Deprecation Workflow Using Observability
 
