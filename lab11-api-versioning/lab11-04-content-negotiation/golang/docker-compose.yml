@@ -1,0 +1,18 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/workshop?sslmode=disable
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: workshop
+    ports:
+      - "5432:5432"
