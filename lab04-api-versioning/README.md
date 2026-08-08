@@ -1,4 +1,4 @@
-# Lab 11 -- API Versioning
+# Group 04: API Versioning
 
 API versioning is how you evolve your API without breaking existing clients. This lab covers the full spectrum: from choosing where to place the version identifier (URL, query string, header, media type) through deprecation workflows and production observability. Each sub-lab is a self-contained, runnable project that demonstrates one versioning strategy or operational concern.
 
@@ -12,14 +12,14 @@ Work through the sub-labs in order. Each one builds on concepts introduced in th
 
 | #  | Sub-Lab | Topic | Description |
 |----|---------|-------|-------------|
-| 01 | [lab11-01-url-path-versioning](lab11-01-url-path-versioning/) | URL Path Versioning | Four URL placement variations: version as root prefix (`/v1/api/resource`), after the API prefix (`/api/v1/resource`), as resource suffix (`/api/resource/v1`), and baked into the resource name (`/api/resource-v1`). Covers trade-offs, routing pitfalls, and the recommended default. |
-| 02 | [lab11-02-query-parameter-versioning](lab11-02-query-parameter-versioning/) | Query Parameter Versioning | Version selected via `?api-version=1`. Keeps URLs stable, easy to test in a browser. Explores caching implications and default-version behavior when the parameter is omitted. |
-| 03 | [lab11-03-header-versioning](lab11-03-header-versioning/) | Header-Based Versioning | Version selected via the `X-Api-Version` request header. Ideal for internal service-to-service APIs where URL cleanliness matters and all consumers are controlled. |
-| 04 | [lab11-04-content-negotiation](lab11-04-content-negotiation/) | Content Negotiation / Media Type Versioning | Version embedded in the `Accept` header (`application/vnd.myapi.v1+json`). The most REST-pure approach; examines why it is architecturally correct but operationally painful. |
-| 05 | [lab11-05-evolving-api](lab11-05-evolving-api/) | Evolving API Without Versioning | Additive-only changes: add fields, never remove them. Demonstrates how far you can go without introducing a version at all, using tolerant readers and extensibility contracts. |
-| 06 | [lab11-06-combining-strategies](lab11-06-combining-strategies/) | Combining Multiple Versioning Strategies | Run URL path, query parameter, and header versioning simultaneously. A single request can carry the version in any of the three locations, with a defined precedence order. |
-| 07 | [lab11-07-breaking-changes-and-deprecation](lab11-07-breaking-changes-and-deprecation/) | Breaking Changes and Deprecation | Classify changes as safe, breaking, or context-dependent. Implement `Deprecation` and `Sunset` response headers (RFC 8594), `Link` headers (RFC 8288), and HTTP 410 Gone tombstone responses. |
-| 08 | [lab11-08-version-lifecycle-and-observability](lab11-08-version-lifecycle-and-observability/) | Version Lifecycle and Observability | Full lifecycle management (current, maintained, deprecated, end-of-life) backed by Prometheus metrics and structured logs. Build dashboards showing per-version traffic splits to decide when it is safe to sunset a version. |
+| 01 | [lab04-01-url-path-versioning](lab04-01-url-path-versioning/) | URL Path Versioning | Four URL placement variations: version as root prefix (`/v1/api/resource`), after the API prefix (`/api/v1/resource`), as resource suffix (`/api/resource/v1`), and baked into the resource name (`/api/resource-v1`). Covers trade-offs, routing pitfalls, and the recommended default. |
+| 02 | [lab04-02-query-parameter-versioning](lab04-02-query-parameter-versioning/) | Query Parameter Versioning | Version selected via `?api-version=1`. Keeps URLs stable, easy to test in a browser. Explores caching implications and default-version behavior when the parameter is omitted. |
+| 03 | [lab04-03-header-versioning](lab04-03-header-versioning/) | Header-Based Versioning | Version selected via the `X-Api-Version` request header. Ideal for internal service-to-service APIs where URL cleanliness matters and all consumers are controlled. |
+| 04 | [lab04-04-content-negotiation](lab04-04-content-negotiation/) | Content Negotiation / Media Type Versioning | Version embedded in the `Accept` header (`application/vnd.myapi.v1+json`). The most REST-pure approach; examines why it is architecturally correct but operationally painful. |
+| 05 | [lab04-05-evolving-api](lab04-05-evolving-api/) | Evolving API Without Versioning | Additive-only changes: add fields, never remove them. Demonstrates how far you can go without introducing a version at all, using tolerant readers and extensibility contracts. |
+| 06 | [lab04-06-combining-strategies](lab04-06-combining-strategies/) | Combining Multiple Versioning Strategies | Run URL path, query parameter, and header versioning simultaneously. A single request can carry the version in any of the three locations, with a defined precedence order. |
+| 07 | [lab04-07-breaking-changes-and-deprecation](lab04-07-breaking-changes-and-deprecation/) | Breaking Changes and Deprecation | Classify changes as safe, breaking, or context-dependent. Implement `Deprecation` and `Sunset` response headers (RFC 8594), `Link` headers (RFC 8288), and HTTP 410 Gone tombstone responses. |
+| 08 | [lab04-08-version-lifecycle-and-observability](lab04-08-version-lifecycle-and-observability/) | Version Lifecycle and Observability | Full lifecycle management (current, maintained, deprecated, end-of-life) backed by Prometheus metrics and structured logs. Build dashboards showing per-version traffic splits to decide when it is safe to sunset a version. |
 
 ## Which Labs Should I Do?
 
@@ -51,7 +51,7 @@ These cover alternative strategies. Useful for broadening your perspective, but 
 | Lab | When it is useful |
 |-----|------------------|
 | **02 -- Query Parameter** | If your API needs a secondary version reader for browser/tool testing. The concept is simple -- skim the README, run one curl. |
-| **03 -- Header Versioning** | If you build internal microservice APIs. Same middleware pattern as lab 02, just a different extraction point. |
+| **03 -- Header Versioning** | If you build internal microservice APIs. Same middleware pattern as lab 04-02, just a different extraction point. |
 
 ### Skip Unless You Need It
 
@@ -62,9 +62,9 @@ These cover alternative strategies. Useful for broadening your perspective, but 
 ### Quick Reference
 
 ```
-Have 1 hour?     -> Lab 01, 07
-Have 2-3 hours?  -> Lab 01, 05, 06, 07
-Have half a day? -> Lab 01, 05, 06, 07, 08
+Have 1 hour?     -> Lab 04-01, 04-07
+Have 2-3 hours?  -> Lab 04-01, 04-05, 04-06, 04-07
+Have half a day? -> Lab 04-01, 04-05, 04-06, 04-07, 04-08
 Have a full day? -> All labs in order (01-08)
 ```
 
@@ -74,11 +74,11 @@ Each sub-lab contains a `golang/` and `dotnet/` directory. Pick your language, t
 
 ```bash
 # Example: run the URL path versioning lab in Go
-cd lab11-01-url-path-versioning/golang
+cd lab04-01-url-path-versioning/golang
 docker compose up --build
 
 # Example: run the header versioning lab in .NET
-cd lab11-03-header-versioning/dotnet
+cd lab04-03-header-versioning/dotnet
 docker compose up --build
 ```
 
@@ -98,21 +98,21 @@ No local Go or .NET SDK is required -- everything runs inside containers.
 ## Project Structure
 
 ```
-lab11-api-versioning/
+lab04-api-versioning/
   CLAUDE.md                              # Knowledge base (workshop context and reference material)
   README.md                              # This file
-  lab11-01-url-path-versioning/
+  lab04-01-url-path-versioning/
     golang/
       docker-compose.yml
       ...
     dotnet/
       docker-compose.yml
       ...
-  lab11-02-query-parameter-versioning/
+  lab04-02-query-parameter-versioning/
     golang/
     dotnet/
   ...
-  lab11-08-version-lifecycle-and-observability/
+  lab04-08-version-lifecycle-and-observability/
     golang/
     dotnet/
 ```

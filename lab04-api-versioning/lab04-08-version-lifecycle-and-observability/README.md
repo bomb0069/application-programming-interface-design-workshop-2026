@@ -1,4 +1,4 @@
-# Lab 11-08: Version Lifecycle and Observability
+# Lab 04-08: Version Lifecycle and Observability
 
 ## Overview
 

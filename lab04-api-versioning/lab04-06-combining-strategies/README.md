@@ -1,4 +1,4 @@
-# Lab 11-06: Combining Multiple Versioning Strategies
+# Lab 04-06: Combining Multiple Versioning Strategies
 
 ## Overview
 

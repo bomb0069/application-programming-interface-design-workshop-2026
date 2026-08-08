@@ -1,4 +1,4 @@
-# Lab 20 - MQTT
+# Lab 11-02: MQTT
 
 IoT-style pub/sub messaging with an MQTT broker (Mosquitto) in Go.
 

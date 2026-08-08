@@ -1,4 +1,4 @@
-# Lab 11-04: Content Negotiation (Media Type Versioning)
+# Lab 04-04: Content Negotiation (Media Type Versioning)
 
 ## Overview
 

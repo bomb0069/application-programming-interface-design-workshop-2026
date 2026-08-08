@@ -1,4 +1,4 @@
-# Lab 14 - GraphQL
+# Lab 08-01: GraphQL
 
 Build a GraphQL API in Go using the `graphql-go/graphql` library with a products catalog backed by PostgreSQL.
 

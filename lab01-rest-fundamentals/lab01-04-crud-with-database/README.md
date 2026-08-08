@@ -1,6 +1,6 @@
-# Lab 05 - CRUD with Database
+# Lab 01-04: CRUD with Database
 
-In this lab, we replace the in-memory store from Lab 04 with a real **PostgreSQL** database. The API endpoints remain identical, but data now persists across restarts.
+In this lab, we replace the in-memory store from Lab 01-03 with a real **PostgreSQL** database. The API endpoints remain identical, but data now persists across restarts.
 
 ## Learning Objectives
 
@@ -28,7 +28,7 @@ The API is available at `http://localhost:8080`.
 
 ## Test with curl
 
-These are the same endpoints as Lab 04 -- the only difference is that data is now stored in PostgreSQL.
+These are the same endpoints as Lab 01-03 -- the only difference is that data is now stored in PostgreSQL.
 
 **Create a todo:**
 
@@ -123,9 +123,9 @@ if err == sql.ErrNoRows {
 }
 ```
 
-## Comparing with Lab 04
+## Comparing with Lab 01-03
 
-| Aspect | Lab 04 (In-Memory) | Lab 05 (Database) |
+| Aspect | Lab 01-03 (In-Memory) | Lab 01-04 (Database) |
 |---|---|---|
 | Storage | Go slice + mutex | PostgreSQL table |
 | Persistence | Lost on restart | Survives restarts |

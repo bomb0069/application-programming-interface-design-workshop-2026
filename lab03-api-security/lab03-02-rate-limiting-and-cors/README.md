@@ -1,4 +1,4 @@
-# Lab 12 - Rate Limiting and CORS
+# Lab 03-02: Rate Limiting and CORS
 
 ## Learning Objectives
 

@@ -1,4 +1,4 @@
-# Lab 11-02: Query Parameter Versioning
+# Lab 04-02: Query Parameter Versioning
 
 ## Overview
 

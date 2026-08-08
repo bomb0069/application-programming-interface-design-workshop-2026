@@ -1,4 +1,4 @@
-# Lab 18 - gRPC Advanced: Streaming and REST Gateway
+# Lab 10-02: gRPC Advanced: Streaming and REST Gateway
 
 ## Learning Objectives
 

@@ -1,4 +1,4 @@
-# Lab 06 - Request Validation
+# Lab 02-03: Request Validation
 
 Learn how to validate incoming request bodies in a Go REST API using the [go-playground/validator](https://github.com/go-playground/validator) library.
 

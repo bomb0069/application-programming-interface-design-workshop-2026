@@ -1,4 +1,4 @@
-# Lab 02 - JSON Response
+# Lab 01-02: JSON Response
 
 ## Learning Objectives
 
@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 - Go 1.24 or later installed
 - Docker and Docker Compose installed
-- Basic understanding of HTTP (covered in Lab 01)
+- Basic understanding of HTTP (covered in Lab 01-01)
 - A terminal and a text editor
 
 ## Getting Started

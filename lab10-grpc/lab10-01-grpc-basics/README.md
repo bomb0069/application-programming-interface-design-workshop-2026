@@ -1,4 +1,4 @@
-# Lab 17 - gRPC Basics
+# Lab 10-01: gRPC Basics
 
 ## Learning Objectives
 

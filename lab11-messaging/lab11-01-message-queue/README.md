@@ -1,4 +1,4 @@
-# Lab 19 - Message Queue
+# Lab 11-01: Message Queue
 
 Asynchronous communication between services using RabbitMQ in Go.
 

@@ -1,4 +1,4 @@
-# Lab 16 - WebSocket
+# Lab 09-02: WebSocket
 
 Real-time bidirectional communication with WebSocket in Go - building a simple chat system.
 

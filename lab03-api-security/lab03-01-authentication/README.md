@@ -1,4 +1,4 @@
-# Lab 10 - Authentication
+# Lab 03-01: Authentication
 
 ## Learning Objectives
 
