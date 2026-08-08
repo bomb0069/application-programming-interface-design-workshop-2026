@@ -53,6 +53,104 @@ Log aggregators can answer "give me every unique client still calling v1".
 
 Tag every span with `api.version` and `client.id`. This helps answer: "Are v1 callers experiencing higher latency than v2?"
 
+## Code Walkthrough: The Metrics Middleware
+
+All version metrics come from one small middleware. In the Go edition it lives in `golang/main.go`; the .NET edition's equivalent is `dotnet/Middleware/PrometheusVersionMiddleware.cs`. It has three jobs: **define the metrics**, **time every request**, and **attach the right labels**.
+
+### 1. Define the metrics (once, at startup)
+
+```go
+var (
+    httpRequestsTotal = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: "api_requests_total",       // the metric name you query in PromQL
+            Help: "Total number of API requests",
+        },
+        []string{"version", "endpoint", "method", "status"},
+    )
+
+    httpRequestDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name:    "api_request_duration_seconds",
+            Help:    "Request duration in seconds",
+            Buckets: prometheus.DefBuckets,
+        },
+        []string{"version", "endpoint", "method"},
+    )
+)
+
+func init() {
+    prometheus.MustRegister(httpRequestsTotal)
+    prometheus.MustRegister(httpRequestDuration)
+}
+```
+
+Two metric types, two different questions:
+
+- **Counter** (`api_requests_total`) — only ever goes up. Prometheus turns it into traffic *rates* with `rate(...)`; you never read the raw number directly.
+- **Histogram** (`api_request_duration_seconds`) — records each duration into buckets, which is what lets the dashboard compute average latency per version (`_sum / _count`) and percentiles later.
+
+They are package-level and registered once in `init()` — a metric must exist **once per process**, with every request incrementing the same series.
+
+### 2. Time the request by wrapping the handler
+
+```go
+func prometheusMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        wrapped := &statusRecorder{ResponseWriter: w, statusCode: 200}
+        next.ServeHTTP(wrapped, r)      // run the actual handler (DB query, JSON encode…)
+
+        version := getVersion(r)
+        duration := time.Since(start).Seconds()
+
+        httpRequestsTotal.WithLabelValues(version, r.URL.Path, r.Method,
+            strconv.Itoa(wrapped.statusCode)).Inc()
+        httpRequestDuration.WithLabelValues(version, r.URL.Path, r.Method).Observe(duration)
+    })
+}
+```
+
+Classic middleware sandwich: capture the clock before `next.ServeHTTP`, record after it returns. One Go-specific trick: `http.ResponseWriter` doesn't expose the status code after the fact, so the middleware wraps it in a `statusRecorder` that remembers whatever `WriteHeader` was called with.
+
+### 3. Attach the version label — and only on versioned routes
+
+The middleware is mounted **inside** the versioned route groups, next to a tiny middleware that stamps the version into the request context:
+
+```go
+r.Route("/api/v1", func(r chi.Router) {
+    r.Use(setVersion("v1"))          // context value: "v1"
+    r.Use(prometheusMiddleware)      // reads it back via getVersion(r)
+    ...
+})
+
+r.Route("/api/v2", func(r chi.Router) {
+    r.Use(setVersion("v2"))
+    r.Use(prometheusMiddleware)
+    ...
+})
+```
+
+Two details here carry the whole lab:
+
+- **The label value must match the dashboard.** Grafana's gauges query `version="v1"` — so the middleware must emit exactly `v1`/`v2`. A mismatch is silent: nothing errors, the panels just show *No data*. (The .NET edition once emitted `"1"`/`"2"` here — that was the bug behind empty Traffic Share gauges.)
+- **Unversioned paths are never counted.** Because the middleware only exists inside `/api/v1` and `/api/v2`, requests to `/metrics`, `/health`, and `/api/lifecycle` don't pollute the traffic-share math: `sum(rate(api_requests_total{version="v1"})) / sum(rate(api_requests_total))` sums to 100% across v1+v2. (The .NET middleware is global, so it checks `GetRequestedApiVersion()` and skips requests that resolved no version — same effect, different mechanism.)
+
+### A word on label cardinality
+
+Every distinct label combination becomes its own time series in Prometheus. This lab labels by raw `endpoint` path, which is safe only because the ID space is tiny (3 seeded products). In production, label by **route template** (`/api/v1/products/{id}`), never by raw path — otherwise every distinct ID mints a new series and Prometheus memory explodes. That is also why there is no `user_id` label: high-cardinality questions ("which clients still call v1?") belong to structured logs, not metrics.
+
+### From labels to dashboard
+
+The two Grafana gauges are just this pipeline seen end-to-end:
+
+```
+middleware label            PromQL on the dashboard
+version="v2"       ─────▶   sum(rate(api_requests_total{version="v2"}[1m]))
+                            ─────────────────────────────────────────────── × 100
+all versioned reqs ─────▶   sum(rate(api_requests_total[1m]))
+```
+
 ## Getting Started
 
 ```bash
