@@ -75,10 +75,10 @@ This starts 4 services:
 
 ```bash
 # V1 traffic
-for i in $(seq 1 10); do curl -s http://localhost:8080/api/v1/products > /dev/null; done
+for i in $(seq 1 10); do curl -s -o /dev/null -w "%{http_code} " http://localhost:8080/api/v1/products; done; echo
 
 # V2 traffic
-for i in $(seq 1 20); do curl -s http://localhost:8080/api/v2/products > /dev/null; done
+for i in $(seq 1 20); do curl -s -o /dev/null -w "%{http_code} " http://localhost:8080/api/v2/products; done; echo
 ```
 
 ### Run the Load Test

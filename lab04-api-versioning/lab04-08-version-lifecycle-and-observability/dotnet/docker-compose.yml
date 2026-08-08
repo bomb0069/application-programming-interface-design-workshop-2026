@@ -56,10 +56,10 @@ services:
         condition: service_started
     environment:
       - API_HOST=api:8080
-      - V1_WEIGHT=30
-      - V2_WEIGHT=70
-      - DURATION_SECONDS=180
-      - REQUESTS_PER_SEC=5
+      - V1_WEIGHT=${V1_WEIGHT:-30}
+      - V2_WEIGHT=${V2_WEIGHT:-70}
+      - DURATION_SECONDS=${DURATION_SECONDS:-180}
+      - REQUESTS_PER_SEC=${REQUESTS_PER_SEC:-5}
     profiles:
       - loadtest
 

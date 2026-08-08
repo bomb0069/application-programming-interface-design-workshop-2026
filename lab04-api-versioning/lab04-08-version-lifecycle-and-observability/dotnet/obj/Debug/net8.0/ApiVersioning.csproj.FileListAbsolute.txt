@@ -1,0 +1,8 @@
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.csproj.AssemblyReference.cache
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.AssemblyInfoInputs.cache
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.AssemblyInfo.cs
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.csproj.CoreCompileInputs.cache
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.MvcApplicationPartsAssemblyInfo.cs
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.MvcApplicationPartsAssemblyInfo.cache
+/Volumes/Work/lab/api/workshop/application-programming-interface-design-workshop-2026/lab04-api-versioning/lab04-08-version-lifecycle-and-observability/dotnet/obj/Debug/net8.0/ApiVersioning.sourcelink.json

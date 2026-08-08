@@ -1,4 +1,4 @@
-module lab11-08-version-lifecycle-and-observability
+module lab04-08-version-lifecycle-and-observability
 
 go 1.24
 
